@@ -1,6 +1,6 @@
 import { ImageI } from '@/definitions/interfaces/_styled/ImageComp'
 import { ButtonLinkI, SocialLinkI } from '@/definitions/interfaces/_styled/Links'
-import { COLORS } from '@/definitions/enums'
+import { COLORS } from '@/types/enums'
 
 export interface HeroSectionI {
   blok: {
