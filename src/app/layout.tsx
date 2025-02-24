@@ -1,5 +1,5 @@
 import { PrismicPreview } from "@prismicio/next";
-import { repositoryName } from "@/prismicio";
+import { repositoryName } from "@/src/prismicio";
 import './global.css'
 import {
   Open_Sans,
