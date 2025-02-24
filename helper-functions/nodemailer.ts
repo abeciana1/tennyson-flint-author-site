@@ -1,6 +1,6 @@
 import nodemailer from 'nodemailer';
 import Mail from 'nodemailer/lib/mailer';
-import { ContactFormDataI } from '@/definitions/interfaces/_sections'
+import { ContactFormDataI } from '@/types/sections'
 
 export const transport = nodemailer.createTransport({
   service: 'gmail',
