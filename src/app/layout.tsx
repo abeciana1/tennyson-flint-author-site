@@ -1,6 +1,6 @@
 import { PrismicPreview } from "@prismicio/next";
 import { repositoryName } from "@/prismicio";
-import "./globals.css";
+import './global.css'
 import {
   Open_Sans,
   Cinzel,
