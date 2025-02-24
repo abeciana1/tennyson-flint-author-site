@@ -4,6 +4,99 @@ import type * as prismic from "@prismicio/client";
 
 type Simplify<T> = { [KeyType in keyof T]: T[KeyType] };
 
+/**
+ * Item in *Header Nav → Nav Links*
+ */
+export interface HeaderNavDocumentDataNavLinksItem {}
+
+type HeaderNavDocumentDataSlicesSlice = NavLinkSlice;
+
+/**
+ * Content for Header Nav documents
+ */
+interface HeaderNavDocumentData {
+  /**
+   * Nav Links field in *Header Nav*
+   *
+   * - **Field Type**: Group
+   * - **Placeholder**: *None*
+   * - **API ID Path**: header_nav.nav_links[]
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#group
+   */
+  nav_links: prismic.GroupField<Simplify<HeaderNavDocumentDataNavLinksItem>>;
+
+  /**
+   * Slice Zone field in *Header Nav*
+   *
+   * - **Field Type**: Slice Zone
+   * - **Placeholder**: *None*
+   * - **API ID Path**: header_nav.slices[]
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#slices
+   */
+  slices: prismic.SliceZone<HeaderNavDocumentDataSlicesSlice>;
+}
+
+/**
+ * Header Nav document from Prismic
+ *
+ * - **API ID**: `header_nav`
+ * - **Repeatable**: `false`
+ * - **Documentation**: https://prismic.io/docs/custom-types
+ *
+ * @typeParam Lang - Language API ID of the document.
+ */
+export type HeaderNavDocument<Lang extends string = string> =
+  prismic.PrismicDocumentWithoutUID<
+    Simplify<HeaderNavDocumentData>,
+    "header_nav",
+    Lang
+  >;
+
+/**
+ * Content for Navigation Link documents
+ */
+interface NavigationLinkDocumentData {
+  /**
+   * Label field in *Navigation Link*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: navigation_link.label
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  label: prismic.KeyTextField;
+
+  /**
+   * Href field in *Navigation Link*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: navigation_link.href
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  href: prismic.KeyTextField;
+}
+
+/**
+ * Navigation Link document from Prismic
+ *
+ * - **API ID**: `navigation_link`
+ * - **Repeatable**: `true`
+ * - **Documentation**: https://prismic.io/docs/custom-types
+ *
+ * @typeParam Lang - Language API ID of the document.
+ */
+export type NavigationLinkDocument<Lang extends string = string> =
+  prismic.PrismicDocumentWithUID<
+    Simplify<NavigationLinkDocumentData>,
+    "navigation_link",
+    Lang
+  >;
+
 type PageDocumentDataSlicesSlice = never;
 
 /**
@@ -65,7 +158,65 @@ interface PageDocumentData {
 export type PageDocument<Lang extends string = string> =
   prismic.PrismicDocumentWithUID<Simplify<PageDocumentData>, "page", Lang>;
 
-export type AllDocumentTypes = PageDocument;
+export type AllDocumentTypes =
+  | HeaderNavDocument
+  | NavigationLinkDocument
+  | PageDocument;
+
+/**
+ * Primary content in *NavLink → Default → Primary*
+ */
+export interface NavLinkSliceDefaultPrimary {
+  /**
+   * Label field in *NavLink → Default → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: nav_link.default.primary.label
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  label: prismic.KeyTextField;
+
+  /**
+   * Href field in *NavLink → Default → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: nav_link.default.primary.href
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  href: prismic.KeyTextField;
+}
+
+/**
+ * Default variation for NavLink Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type NavLinkSliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Simplify<NavLinkSliceDefaultPrimary>,
+  never
+>;
+
+/**
+ * Slice variation for *NavLink*
+ */
+type NavLinkSliceVariation = NavLinkSliceDefault;
+
+/**
+ * NavLink Shared Slice
+ *
+ * - **API ID**: `nav_link`
+ * - **Description**: NavLink
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type NavLinkSlice = prismic.SharedSlice<
+  "nav_link",
+  NavLinkSliceVariation
+>;
 
 /**
  * Primary content in *RichText → Default → Primary*
@@ -133,10 +284,20 @@ declare module "@prismicio/client" {
 
   namespace Content {
     export type {
+      HeaderNavDocument,
+      HeaderNavDocumentData,
+      HeaderNavDocumentDataNavLinksItem,
+      HeaderNavDocumentDataSlicesSlice,
+      NavigationLinkDocument,
+      NavigationLinkDocumentData,
       PageDocument,
       PageDocumentData,
       PageDocumentDataSlicesSlice,
       AllDocumentTypes,
+      NavLinkSlice,
+      NavLinkSliceDefaultPrimary,
+      NavLinkSliceVariation,
+      NavLinkSliceDefault,
       RichTextSlice,
       RichTextSliceDefaultPrimary,
       RichTextSliceVariation,

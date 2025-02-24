@@ -1,0 +1,19 @@
+[
+	{
+		"__TYPE__": "SharedSliceContent",
+		"variation": "default",
+		"primary": {
+			"label": {
+				"__TYPE__": "FieldContent",
+				"value": "copper",
+				"type": "Text"
+			},
+			"href": {
+				"__TYPE__": "FieldContent",
+				"value": "grew",
+				"type": "Text"
+			}
+		},
+		"items": []
+	}
+]

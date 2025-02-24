@@ -1,0 +1,30 @@
+{
+  "format": "custom",
+  "id": "header_nav",
+  "label": "Header Nav",
+  "repeatable": false,
+  "status": true,
+  "json": {
+    "Main": {
+      "nav_links": {
+        "type": "Group",
+        "config": {
+          "label": "Nav Links",
+          "repeat": true,
+          "fields": {}
+        }
+      },
+      "slices": {
+        "type": "Slices",
+        "fieldset": "Slice Zone",
+        "config": {
+          "choices": {
+            "nav_link": {
+              "type": "SharedSlice"
+            }
+          }
+        }
+      }
+    }
+  }
+}
